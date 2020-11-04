@@ -1,4 +1,4 @@
-/* XGInputServer - Keyboard input handling
+/* HLInputServer - Keyboard input handling
 
    Copyright (C) 2002 Free Software Foundation, Inc.
 
@@ -24,45 +24,51 @@
    Boston, MA 02110-1301, USA.
 */ 
 
-#ifndef _GNUstep_H_XGInputServer
-#define _GNUstep_H_XGInputServer
+#ifndef _GNUstep_H_HLInputServer
+#define _GNUstep_H_HLInputServer
 
 #include <AppKit/NSInputServer.h>
-#include <x11/XGServerWindow.h>
 
+// #include <x11/HLServerWindow.h>
+/*
 @protocol XInputFiltering
 - (BOOL) filterEvent: (XEvent *)event;
-- (NSString *) lookupStringForEvent: (XKeyEvent *)event 
-			     window: (gswindow_device_t *)window
-                             keysym: (KeySym *)keysymptr;
+- (NSString *)
+    lookupStringForEvent: (XKeyEvent *)event
+    window: (gswindow_device_t *)window
+    keysym: (KeySym *)keysymptr;
 @end
+*/
 
 
-@interface XIMInputServer: NSInputServer <XInputFiltering>
+@interface XLInputServer: NSInputServer <XInputFiltering>
 {
+  /*
   id        delegate;
   NSString *server_name;
   XIM       xim;
   XIMStyle  xim_style;
 
-  /* Track the XIC:s and destroy them explicitly to work around an XFree86
+  // Track the XIC:s and destroy them explicitly to work around an XFree86
   bug:
   http://www.xfree86.org/pipermail/xpert/2002-June/018370.html
-  */
   XIC      *xics;
   int       num_xics;
+  */
 }
 
-- (id) initWithDelegate: (id)aDelegate
-		display: (Display *)dpy
-		   name: (NSString *)name;
-- (void) ximFocusICWindow: (gswindow_device_t *)windev;
-- (void) ximCloseIC: (XIC)xic;
+- (id)
+    initWithDelegate: (id)aDelegate
+    display: (Display *)dpy
+    name: (NSString *)name;
+    
+// - (void) ximFocusICWindow: (gswindow_device_t *)windev;
+// - (void) ximCloseIC: (XIC)xic;
 
 @end
 
 // Public interface for the input methods
-@interface XIMInputServer (InputMethod)
+@interface HLInputServer (InputMethod)
 - (NSString *) inputMethodStyle;
 - (NSString *) fontSize: (int *)size;
 - (BOOL) clientWindowRect: (NSRect *)rect;

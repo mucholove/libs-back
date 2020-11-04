@@ -42,20 +42,20 @@
 #include <Foundation/NSUserDefaults.h>
 #include <Foundation/NSDebug.h>
 
-#include "x11/HLServer.h"
-#include "xlib/HLContext.h"
-#include "xlib/HLPrivate.h"
-#include "xlib/HLGState.h"
+#include "headless/HLServer.h"
+#include "headless/HLContext.h"
+#include "headless/HLPrivate.h"
+#include "headless/HLGState.h"
 
-#ifdef HAVE_XFT
-#include "xlib/GSXftFontInfo.h"
-#endif
+// #ifdef HAVE_XFT
+// #include "xlib/GSXftFontInfo.h"
+// #endif
 
-#include "xlib/HLFontSetFontInfo.h"
+#include "headless/HLFontSetFontInfo.h"
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/keysym.h>
+// #include <X11/Xlib.h>
+// #include <X11/Xutil.h>
+// #include <X11/keysym.h>
 
 /**
    <unit>

@@ -1,4 +1,4 @@
-/* <title>XGContext</title>
+/* <title>HLContext</title>
 
    <abstract>Backend drawing context using the Xlib library.</abstract>
 
@@ -26,8 +26,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _XGContext_h_INCLUDE
-#define _XGContext_h_INCLUDE
+#ifndef _HLContext_h_INCLUDE
+#define _HLContext_h_INCLUDE
 
 #include "gsc/GSContext.h"
 
@@ -36,4 +36,4 @@
 }
 @end
 
-#endif /* _XGContext_h_INCLUDE */
+#endif /* _HLContext_h_INCLUDE */

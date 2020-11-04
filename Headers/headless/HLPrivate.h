@@ -28,20 +28,24 @@
 #ifndef _HLPrivate_h_INCLUDE
 #define _HLPrivate_h_INCLUDE
 
+/*
 #ifdef HAVE_WRASTER_H
 #include "wraster.h"
 #else
 #include "x11/wraster.h"
 #endif
+*/
 
-#include "x11/HLServer.h"
-#include "xlib/HLContext.h"
+#include "headless/HLServer.h"
+#include "headless/HLContext.h"
+
 #include <GNUstepGUI/GSFontInfo.h>
 
 /* Font function (defined in HLFontManager) */
-extern NSString	*HLXFontName(NSString *fontName, float size);
+extern NSString	*HLFontName(NSString *fontName, float size);
 
 /* Font functions (defined in HLCommonFont) */
+/*
 extern NSString        *HLFontCacheName(Display *dpy);
 extern NSString        *HLFontName(Display *dpy, XFontStruct *font_struct);
 extern NSString	     *HLFontFamily(Display *dpy, XFontStruct *font_struct);
@@ -51,6 +55,7 @@ extern NSFontTraitMask  HLTraitsOfFont(Display *dpy, XFontStruct *info);
 extern BOOL             HLFontIsFixedPitch(Display *dpy, XFontStruct *font_struct);
 extern NSString        *HLFontPropString(Display *dpy, XFontStruct *font_struct, Atom atom);
 extern unsigned long    HLFontPropULong(Display *dpy, XFontStruct *font_struct,  Atom atom);
+*/
 
 @interface HLFontEnumerator : GSFontEnumerator
 {
@@ -59,10 +64,11 @@ extern unsigned long    HLFontPropULong(Display *dpy, XFontStruct *font_struct, 
 
 @interface HLFontInfo : GSFontInfo
 {
-  XFontStruct *font_info;
+  // XFontStruct *font_info;
 }
 @end
 
+/*
 @interface GSFontInfo (XBackend)
 
 - (void) 
@@ -102,7 +108,7 @@ extern unsigned long    HLFontPropULong(Display *dpy, XFontStruct *font_struct, 
 
 @end
 
-/* In HLBitmap.m */
+// In HLBitmap.m
 extern int _pixmap_combine_alpha(RContext *context,
                       RXImage *source_im, RXImage *source_alpha,
                       RXImage *dest_im, RXImage *dest_alpha,
@@ -130,6 +136,6 @@ extern NSData *_pixmap_read_alpha(RContext *context,
 
 #endif
 
-
+*/
 
 

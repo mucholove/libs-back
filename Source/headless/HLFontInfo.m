@@ -42,7 +42,7 @@
 #include <GNUstepBase/Unicode.h>
 
 #include <AppKit/NSBezierPath.h>
-#include "xlib/GSHLFontInfo.h"
+#include "headless/HLFontInfo.h"
 
 #define id _gs_avoid_id_collision
 #include <fontconfig/fontconfig.h>

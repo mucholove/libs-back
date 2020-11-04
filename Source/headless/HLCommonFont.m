@@ -36,11 +36,11 @@
 
 #include <config.h>
 
-#include <X11/Xatom.h>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include "xlib/HLContext.h"
-#include "xlib/HLPrivate.h"
+// #include <X11/Xatom.h>
+// #include <X11/Xlib.h>
+// #include <X11/Xutil.h>
+#include "headless/HLContext.h"
+#include "headless/HLPrivate.h"
 #include <Foundation/NSDebug.h>
 // For the encoding functions
 #include <GNUstepBase/Unicode.h>

@@ -27,11 +27,13 @@
    Boston, MA 02110-1301, USA.
 */
 
+/*
 // Include this before we include any objC defines, otherwise id is defined
 #include <X11/Xlib.h>
 #define id xwindowsid
 #include <X11/Xft/Xft.h>
 #undef id
+*/
 
 #import "fontconfig/FCFontInfo.h"
 #import "fontconfig/FCFontEnumerator.h"
@@ -46,23 +48,25 @@
 
 @interface HLFontInfo : FCFontInfo
 {
-  XftFont *font_info;
+    // XftFont *font_info;
 }
 
+/*
 - (void) 
-   drawString:  (NSString*)string
+    drawString:  (NSString*)string
 	onDisplay: (Display*) xdpy
-   drawable: (Drawable) draw
-   with: (GC) xgcntxt 
-   at: (XPoint) xp;
+    drawable: (Drawable) draw
+    with: (GC) HLcntxt
+    at: (XPoint) xp;
    
 - (void) 
-   draw: (const char*) s 
-   length: (int) len 
-   onDisplay: (Display*) xdpy 
-   drawable: (Drawable) draw
-	with: (GC) xgcntxt 
-   at: (XPoint) xp;
+    draw: (const char*) s
+    length: (int) len
+    onDisplay: (Display*) xdpy
+    drawable: (Drawable) draw
+	with: (GC) HLcntxt 
+    at: (XPoint) xp;
+*/
    
 - (CGFloat) 
    widthOf: (const char*) s 
@@ -70,6 +74,6 @@
    
 - (void) 
    setActiveFor: (Display*) xdpy 
-   gc: (GC) xgcntxt;
+   gc: (GC) HLcntxt;
 
 @end

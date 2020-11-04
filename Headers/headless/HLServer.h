@@ -1,4 +1,4 @@
-/* <title>XGServer</title>
+/* <title>HLServer</title>
 
    <abstract>Backend server using the X11.</abstract>
 
@@ -26,31 +26,36 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _XGServer_h_INCLUDE
-#define _XGServer_h_INCLUDE
+#ifndef _HLServer_h_INCLUDE
+#define _HLServer_h_INCLUDE
 
 #include "config.h"
 
+/*
 #include <GNUstepGUI/GSDisplayServer.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include "x11/XGGeneric.h"
+#include "x11/HLGeneric.h"
 #ifdef HAVE_X11_EXTENSIONS_SYNC_H
 #include <X11/extensions/sync.h>
 #endif
+*/
+
+
+
 /*
  * Enumerated type to say how we should draw pixels to the X display - used
  * to select different drawing mechanisms to try to optimise.
  */
 typedef enum {
-  XGDM_FAST15,
-  XGDM_FAST16,
-  XGDM_FAST32,
-  XGDM_FAST32_BGR,
-  XGDM_FAST8,
-  XGDM_PORTABLE
-} XGDrawMechanism;
+  HLDM_FAST15,
+  HLDM_FAST16,
+  HLDM_FAST32,
+  HLDM_FAST32_BGR,
+  HLDM_FAST8,
+  HLDM_PORTABLE
+} HLDrawMechanism;
 
 typedef struct MonitorDevice {
   int screen_id;
@@ -59,14 +64,14 @@ typedef struct MonitorDevice {
   NSRect frame;
 } MonitorDevice;
 
-@interface XGServer : GSDisplayServer
+@interface HLServer : GSDisplayServer
 {
   Display           *dpy;
   int               defScreen;
   NSSize            xScreenSize;
   NSMapTable        *screenList;
   Window	    grabWindow;
-  struct XGGeneric  generic;
+  struct HLGeneric  generic;
   id                inputServer;
   int               randrEventBase;
   int               randrErrorBase;
@@ -83,11 +88,16 @@ typedef struct MonitorDevice {
 - (void *) screenRContext;
 - (Visual *) screenVisual;
 - (int) screenDepth;
-- (XGDrawMechanism) screenDrawMechanism;
+- (HLDrawMechanism) screenDrawMechanism;
 
-- (void) getForScreen: (int)screen_number pixelFormat: (int *)bpp_number 
-                masks: (int *)red_mask : (int *)green_mask : (int *)blue_mask;
-- (XColor) xColorFromColor: (XColor)color;
+- (void)
+    getForScreen: (int)screen_number
+    pixelFormat: (int *)bpp_number
+    masks: (int *)red_mask
+    : (int *)green_mask
+    : (int *)blue_mask;
+    
+// - (XColor) xColorFromColor: (XColor)color;
 
 + (void) waitAllContexts;
 @end
@@ -96,21 +106,32 @@ typedef struct MonitorDevice {
  * Synchronize with X event queue - soak up events.
  * Waits for up to 1 second for event.
  */
-@interface XGServer (XSync)
+@interface HLServer (XSync)
 - (BOOL) xSyncMap: (void*)window;
 @end
 
-@interface XGServer (XGGeneric)
-- (NSRect) _OSFrameToXFrame: (NSRect)o for: (void*)window;
-- (NSRect) _OSFrameToXHints: (NSRect)o for: (void*)window;
-- (NSRect) _XFrameToOSFrame: (NSRect)x for: (void*)window;
-- (NSRect) _XFrameToXHints: (NSRect)o for: (void*)window;
+@interface HLServer (HLGeneric)
+
+- (NSRect)
+    _OSFrameToXFrame: (NSRect)o
+    for: (void*)window;
+- (NSRect)
+    _OSFrameToXHints: (NSRect)o
+    for: (void*)window;
+    
+- (NSRect)
+    _XFrameToOSFrame: (NSRect)x
+    for: (void*)window;
+    
+- (NSRect)
+    _XFrameToXHints: (NSRect)o
+    for: (void*)window;
 
 - (NSString *) windowManagerName;
 @end
 
 // Public interface for the input methods.  
-@interface XGServer (InputMethod)
+@interface HLServer (InputMethod)
 - (NSString *) inputMethodStyle;
 - (NSString *) fontSize: (int *)size;
 - (BOOL) clientWindowRect: (NSRect *)rect;
@@ -124,9 +145,9 @@ typedef struct MonitorDevice {
 - (BOOL) setPreeditSpot: (NSPoint *)p;
 @end
 
-@interface XGServer (TimeKeeping)
+@interface HLServer (TimeKeeping)
 - (void) setLastTime: (Time)last;
 - (Time) lastTime;
 @end
 
-#endif /* _XGServer_h_INCLUDE */
+#endif /* _HLServer_h_INCLUDE */

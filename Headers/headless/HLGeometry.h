@@ -1,6 +1,6 @@
 /* -*- mode: ObjC -*-
 
-   <title>XGGeometry</title>
+   <title>HLGeometry</title>
 
    <abstract>Point and rectangle manipulations for X-structures</abstract>
    
@@ -36,14 +36,18 @@
   So most code is copied from NSGeometry, with only the structs changed
 */
 
-#ifndef _XGGeometry_h_INCLUDE
-#define _XGGeometry_h_INCLUDE
+#ifndef _HLGeometry_h_INCLUDE
+#define _HLGeometry_h_INCLUDE
 
 #include <AppKit/NSAffineTransform.h>
-#include <X11/Xlib.h>
-#include "xlib/XGGState.h"
-#include "x11/XGServerWindow.h"
 
+// #include <X11/Xlib.h>
+
+#include "headless/HLGState.h"
+#include "headless/HLServerWindow.h"
+
+
+/*
 XRectangle
 accessibleRectForWindow (gswindow_device_t *win);
 
@@ -52,7 +56,7 @@ clipXRectsForCopying (gswindow_device_t* winA, XRectangle* rectA,
                       gswindow_device_t* winB, XRectangle* rectB);
 
 static inline XPoint
-XGMakePoint (short x, short y)
+HLMakePoint (short x, short y)
 {
   XPoint p;
 
@@ -63,7 +67,7 @@ XGMakePoint (short x, short y)
 }
 
 static inline XRectangle
-XGMakeRect (short x, short y, unsigned short w, unsigned short h)
+HLMakeRect (short x, short y, unsigned short w, unsigned short h)
 {
   XRectangle rect;
 
@@ -77,74 +81,74 @@ XGMakeRect (short x, short y, unsigned short w, unsigned short h)
 
 
 static inline short
-XGMinX (XRectangle aRect)
+HLMinX (XRectangle aRect)
 {
   return aRect.x;
 }
 
 static inline short
-XGMinY (XRectangle aRect)
+HLMinY (XRectangle aRect)
 {
   return aRect.y;
 }
 
 
 static inline short
-XGMaxX (XRectangle aRect)
+HLMaxX (XRectangle aRect)
 {
   return aRect.x + aRect.width;
 }
 
 static inline short
-XGMaxY (XRectangle aRect)
+HLMaxY (XRectangle aRect)
 {
   return aRect.y + aRect.height;
 }
 
 static inline short
-XGWidth (XRectangle aRect)
+HLWidth (XRectangle aRect)
 {
   return aRect.width;
 }
 
 static inline short
-XGHeight (XRectangle aRect)
+HLHeight (XRectangle aRect)
 {
   return aRect.height;
 }
 
 
 static inline XRectangle
-XGIntersectionRect (XRectangle aRect, XRectangle bRect)
+HLIntersectionRect (XRectangle aRect, XRectangle bRect)
 {
-  if (XGMaxX (aRect) <= XGMinX (bRect) || XGMaxX (bRect) <= XGMinX (aRect)
-    || XGMaxY (aRect) <= XGMinY (bRect) || XGMaxY (bRect) <= XGMinY (aRect))
+  if (HLMaxX (aRect) <= HLMinX (bRect) || HLMaxX (bRect) <= HLMinX (aRect)
+    || HLMaxY (aRect) <= HLMinY (bRect) || HLMaxY (bRect) <= HLMinY (aRect))
     {
-      return XGMakeRect (0, 0, 0, 0);
+      return HLMakeRect (0, 0, 0, 0);
     }
   else
     {
       XRectangle rect;
 
-      if (XGMinX (aRect) <= XGMinX (bRect))
+      if (HLMinX (aRect) <= HLMinX (bRect))
         rect.x = bRect.x;
       else
         rect.x = aRect.x;
 
-      if (XGMaxX (aRect) >= XGMaxX (bRect))
-        rect.width = XGMaxX (bRect) - rect.x;
+      if (HLMaxX (aRect) >= HLMaxX (bRect))
+        rect.width = HLMaxX (bRect) - rect.x;
       else
-        rect.width = XGMaxX (aRect) - rect.x;
+        rect.width = HLMaxX (aRect) - rect.x;
 
-      if (XGMinY (aRect) <= XGMinY (bRect))
+      if (HLMinY (aRect) <= HLMinY (bRect))
         rect.y = bRect.y;
       else
         rect.y = aRect.y;
 
-      if (XGMaxY (aRect) >= XGMaxY (bRect))
-        rect.height = XGMaxY (bRect) - rect.y;
+      if (HLMaxY (aRect) >= HLMaxY (bRect))
+        rect.height = HLMaxY (bRect) - rect.y;
       else
-        rect.height = XGMaxY (aRect) - rect.y;
+        rect.height = HLMaxY (aRect) - rect.y;
 
       return rect;
     }
@@ -152,13 +156,14 @@ XGIntersectionRect (XRectangle aRect, XRectangle bRect)
 
 
 static inline BOOL
-XGIsEmptyRect (XRectangle aRect)
+HLIsEmptyRect (XRectangle aRect)
 {
   if (aRect.width == 0 || aRect.height == 0)
     return YES;
   else
     return NO;
 }
+*/
 
 
 // Just in case this are not defined on a system
@@ -205,8 +210,9 @@ static inline short gs_floor (float f)
  *	Inline functions to convert from OpenStep view coordinates or
  *	OpenStep window coordinates to X window coordinates.
  */
+ /*
 static inline XPoint
-XGWindowPointToX (XGGState *s, NSPoint p)
+HLWindowPointToX (HLGState *s, NSPoint p)
 {
   XPoint newPoint;
 
@@ -217,12 +223,12 @@ XGWindowPointToX (XGGState *s, NSPoint p)
 }
 
 static inline XRectangle
-XGWindowRectToX (XGGState *s, NSRect r)
+HLWindowRectToX (HLGState *s, NSRect r)
 {
   XRectangle newRect;
 
   newRect.x = gs_floor(r.origin.x - s->offset.x);
-  /* We gs_floor the extreme points, and get the width as the difference */
+  // We gs_floor the extreme points, and get the width as the difference
   newRect.width = gs_floor(r.origin.x - s->offset.x + r.size.width) 
                   - newRect.x;
 
@@ -231,24 +237,28 @@ XGWindowRectToX (XGGState *s, NSRect r)
 
   return newRect;
 }
+*/
+
 
 /*
  *	Inline functions to convert from OpenStep view coordinates or
  *	OpenStep window coordinates to X window coordinates.
  */
 
+/*
 static inline XPoint
-XGViewPointToX(XGGState *s, NSPoint p)
+HLViewPointToX(HLGState *s, NSPoint p)
 {
   p = [s->ctm transformPoint: p];
-  return XGWindowPointToX(s, p);
+  return HLWindowPointToX(s, p);
 }
 
 static inline XRectangle
-XGViewRectToX(XGGState *s, NSRect r)
+HLViewRectToX(HLGState *s, NSRect r)
 {
   r = [s->ctm rectInMatrixSpace: r];
-  return XGWindowRectToX(s, r);
+  return HLWindowRectToX(s, r);
 }
+*/
 
-#endif  /* _XGGeometry_h_INCLUDE */
+#endif  /* _HLGeometry_h_INCLUDE */

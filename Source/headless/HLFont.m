@@ -39,7 +39,7 @@
 #include "headless/HLContext.h"
 #include "headless/HLPrivate.h"
 #include "headless/HLGState.h"
-#include "x11/HLServer.h"
+#include "headless/HLServer.h"
 #include <Foundation/NSDebug.h>
 #include <Foundation/NSData.h>
 #include <Foundation/NSValue.h>

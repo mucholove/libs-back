@@ -29,7 +29,7 @@
 #ifndef __HLFontSetFontInfo_h
 #define __HLFontSetFontInfo_h
 
-#include <X11/Xlib.h>
+// #include <X11/Xlib.h>
 #import <GNUstepGUI/GSFontInfo.h>
 
 #ifdef X_HAVE_UTF8_STRING
