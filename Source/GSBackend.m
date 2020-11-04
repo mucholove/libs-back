@@ -57,7 +57,8 @@
 */
 @implementation GSBackend
 
-+ (void) initializeBackend
++ (void)
+     initializeBackend
 {
   Class           contextClass;
   NSString       *context = nil;
@@ -79,10 +80,11 @@
      it's not possible to have more than one */
 
   /* What backend context? */
-  if ([defs stringForKey: @"GSContext"])
+  if ([defs stringForKey: @"GSContext"]) {
     context = [defs stringForKey: @"GSContext"];
+  }
   
-  if ((context == nil) || ([context length] == 0))
+    if ((context == nil) || ([context length] == 0))
     {
 #if (BUILD_GRAPHICS==GRAPHICS_xdps)
     context = @"NSDPSContext";
@@ -96,6 +98,8 @@
     context = @"CairoContext";
 #elif (BUILD_GRAPHICS==GRAPHICS_opal)
     context = @"OpalContext";
+#elif (BUILD_GRAPHICS==GRAPHICS_headless)
+    context = @"HLContext";
 #else
 #error INVALID build graphics type
 #endif

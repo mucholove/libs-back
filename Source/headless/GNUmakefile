@@ -35,12 +35,16 @@ SUBPROJECT_NAME=headless
 headless_OBJC_FILES = \
 	HLBitmap.m \
 	HLCommonFont.m \
-	HLFont.m \
-	HLFontManager.m \
 	HLContext.m \
+	HLFont.m \
+	HLFontInfo.m \
+	HLFontSetFontInfo.m \
+	HLFontManager.m \
 	HLGState.m \
 	HLGeometry.m \
-	HLFontSetFontInfo.m \
+
+# HLFontSetFontInfo.m
+# HLGeometry.m
 
 
 -include GNUmakefile.preamble
