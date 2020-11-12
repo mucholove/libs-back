@@ -1,7 +1,7 @@
 #
-#  Main makefile for GNUstep Backend xlib
+#  Main makefile for GNUstep Backend x11
 #
-#  Copyright (C) 1997 Free Software Foundation, Inc.
+#  Copyright (C) 2002 Free Software Foundation, Inc.
 #
 #  Author: Adam Fedor <fedor@gnu.org>
 #
@@ -21,31 +21,43 @@
 #  License along with this library; see the file COPYING.LIB.
 #  If not, see <http://www.gnu.org/licenses/> or write to the 
 #  Free Software Foundation, 51 Franklin Street, Fifth Floor, 
-#  Boston, MA 02110-1301, USA.
 
 PACKAGE_NAME = gnustep-back
 GNUSTEP_LOCAL_ADDITIONAL_MAKEFILES=../../back.make
+
 include $(GNUSTEP_MAKEFILES)/common.make
 
 include ../../config.make
 
-SUBPROJECT_NAME=headless
+# The library to be compiled, as a library or as a bundle
+SUBPROJECT_NAME=headless_server
+
+# # The C source files to be compiled
+# ifeq ($(WITH_WRASTER),yes)
+# x11_C_FILES = \
+# xdnd.c
+# else
+# x11_C_FILES = \
+# context.c \
+# convert.c \
+# raster.c \
+# scale.c \
+# xdnd.c \
+# xutil.c
+# endif
 
 # The Objective-C source files to be compiled
-headless_OBJC_FILES = \
-	HLBitmap.m \
-	HLCommonFont.m \
-	HLContext.m \
-	HLFont.m \
-	HLFontManager.m \
-	HLGState.m \
-	HLGeometry.m \
+headless_server_OBJC_FILES = \
+HLSContext.m \
+HLSDragView.m \
+HLSInputServer.m \
+HLSServer.m \
+HLSServerEvent.m \
+HLSServerWindow.m \
+HLSWindowBuffer.m\
 
-# HLFontInfo.m \
-# HLFontSetFontInfo.m \
-# HLFontSetFontInfo.m
-# HLGeometry.m
-
+# HLSFormat.m\
+	
 
 -include GNUmakefile.preamble
 

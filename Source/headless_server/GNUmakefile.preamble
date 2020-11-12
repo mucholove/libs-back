@@ -1,7 +1,7 @@
 #
-#  Main makefile for GNUstep Backend xlib
+#  GNUmakefile.preamble
 #
-#  Copyright (C) 1997 Free Software Foundation, Inc.
+#  Copyright (C) 2002 Free Software Foundation, Inc.
 #
 #  Author: Adam Fedor <fedor@gnu.org>
 #
@@ -23,33 +23,31 @@
 #  Free Software Foundation, 51 Franklin Street, Fifth Floor, 
 #  Boston, MA 02110-1301, USA.
 
-PACKAGE_NAME = gnustep-back
-GNUSTEP_LOCAL_ADDITIONAL_MAKEFILES=../../back.make
-include $(GNUSTEP_MAKEFILES)/common.make
+#
+# Flags dealing with compiling and linking
+#
 
-include ../../config.make
+# Additional flags to pass to the preprocessor
+ADDITIONAL_CPPFLAGS += -Wall $(CONFIG_SYSTEM_DEFS)
 
-SUBPROJECT_NAME=headless
+# Additional flags to pass to the Objective-C compiler
+ADDITIONAL_OBJCFLAGS = 
 
-# The Objective-C source files to be compiled
-headless_OBJC_FILES = \
-	HLBitmap.m \
-	HLCommonFont.m \
-	HLContext.m \
-	HLFont.m \
-	HLFontManager.m \
-	HLGState.m \
-	HLGeometry.m \
+# Additional flags to pass to the C compiler
+ADDITIONAL_CFLAGS = 
 
-# HLFontInfo.m \
-# HLFontSetFontInfo.m \
-# HLFontSetFontInfo.m
-# HLGeometry.m
+# Additional include directories the compiler should search
+ADDITIONAL_INCLUDE_DIRS += -I../../Headers \
+	-I../$(GNUSTEP_TARGET_DIR) $(GRAPHIC_CFLAGS)
 
+# Additional LDFLAGS to pass to the linker
+ADDITIONAL_LDFLAGS =
 
--include GNUmakefile.preamble
+# Additional library directories the linker should search
+ADDITIONAL_LIB_DIRS =
 
-include $(GNUSTEP_MAKEFILES)/subproject.make
+#
+# Flags dealing with installing and uninstalling
+#
 
--include GNUmakefile.postamble
 

@@ -28,13 +28,6 @@
 #ifndef _HLPrivate_h_INCLUDE
 #define _HLPrivate_h_INCLUDE
 
-/*
-#ifdef HAVE_WRASTER_H
-#include "wraster.h"
-#else
-#include "x11/wraster.h"
-#endif
-*/
 
 #include "headless/HLServer.h"
 #include "headless/HLContext.h"
@@ -64,78 +57,10 @@ extern unsigned long    HLFontPropULong(Display *dpy, XFontStruct *font_struct, 
 
 @interface HLFontInfo : GSFontInfo
 {
-  // XFontStruct *font_info;
 }
 @end
 
-/*
-@interface GSFontInfo (XBackend)
-
-- (void) 
-   drawString:  (NSString*)string
-   onDisplay: (Display*) xdpy 
-   drawable: (Drawable) draw
-   with: (GC) HLcntxt 
-   at: (XPoint) xp;
-   
-- (void) 
-   draw: (const char*) s 
-   length: (int) len 
-   onDisplay: (Display*) xdpy 
-   drawable: (Drawable) draw
-   with: (GC) HLcntxt 
-   at: (XPoint) xp;
-   
-- (float) 
-   widthOf: (const char*) s 
-   length: (int) len;
-   
-- (void) 
-   setActiveFor: (Display*) xdpy 
-   gc: (GC) HLcntxt;
-
-- (void) 
-   drawGlyphs: (const NSGlyph *) glyphs 
-   length: (int) len
-   onDisplay: (Display*) xdpy 
-   drawable: (Drawable) draw
-   with: (GC) HLcntxt 
-   at: (XPoint) xp;
-   
-- (float) 
-   widthOfGlyphs: (const NSGlyph *) glyphs 
-   length: (int) len;
-
-@end
-
-// In HLBitmap.m
-extern int _pixmap_combine_alpha(RContext *context,
-                      RXImage *source_im, RXImage *source_alpha,
-                      RXImage *dest_im, RXImage *dest_alpha,
-                      XRectangle srect,
-                      NSCompositingOperation op,
-                      HLDrawMechanism drawMechanism,
-				 float fraction);
-
-extern int _bitmap_combine_alpha(RContext *context,
-		unsigned char * data_planes[5],
-		int width, int height,
-		int bits_per_sample, int samples_per_pixel,
-		int bits_per_pixel, int bytes_per_row,
-		int colour_space, BOOL one_is_black,
-		BOOL is_planar, BOOL has_alpha, BOOL fast_min,
-		RXImage *dest_im, RXImage *dest_alpha,
-		XRectangle srect, XRectangle drect,
-		NSCompositingOperation op,
-		HLDrawMechanism drawMechanism);
-
-extern NSData *_pixmap_read_alpha(RContext *context,
-				  RXImage *source_im, RXImage *source_alpha,
-				  XRectangle srect,
-				  HLDrawMechanism drawMechanism);
 
 #endif
-
-*/
 
 

@@ -46,11 +46,6 @@
 #include "headless/HLContext.h"
 #include "headless/HLPrivate.h"
 #include "headless/HLGState.h"
-
-// #ifdef HAVE_XFT
-// #include "xlib/GSXftFontInfo.h"
-// #endif
-
 #include "headless/HLFontSetFontInfo.h"
 
 // #include <X11/Xlib.h>
@@ -72,14 +67,14 @@
 @implementation HLContext 
 
 /* Initialize AppKit backend */
-+ (void)initializeBackend
++ (void) initializeBackend
 {
     Class fontClass = Nil;
     Class fontEnumerator = Nil;
     BOOL  enableFontSet;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
-    NSDebugLog(@"Initializing GNUstep xlib backend.\n");
+    NSDebugLog(@"Initializing GNUstep HLContext backend.\n");
 
     [NSGraphicsContext setDefaultContextClass: [HLContext class]];
     

@@ -24,72 +24,18 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _HLGState_h_INCLUDE
-#define _HLGState_h_INCLUDE
 
 #include <Foundation/NSArray.h>
 #include <Foundation/NSObject.h>
 #include "gsc/GSGState.h"
-#endif
+
+#ifndef _HLGState_h_INCLUDE
+#define _HLGState_h_INCLUDE
 
 @class NSBezierPath;
 @class NSFont;
 
 @interface HLGState : GSGState
-{
-@public
-  void      *context;
-  void      *windevice;
-  HLDrawMechanism drawMechanism;
-  GC	    HLcntxt;
-  GC	    agcntxt;
-  HLCValues gcv;
-  Drawable  draw;
-  Drawable  alpha_buffer;
-  Region clipregion;
-#ifdef HAVE_XFT
-  XftDraw   *xft_draw;
-  XftDraw   *xft_alpha_draw;
-  XftColor  xft_color;
-#endif
-
-  BOOL drawingAlpha;
-  BOOL sharedGC;  /* Do we own the GC or share it? */
-}
-
-- (void) 
-   setWindowDevice: (void *)device;
-   
-- (void) 
-   setGraphicContext: (GC)HLraphicContext;
-   
-- (void) 
-   setGCValues: (HLCValues)values 
-   withMask: (int)mask;
-   
-- (void) 
-   setClipMask;
-   
-- (Region) 
-   xClipRegion;
-
-- (BOOL) hasDrawable;
-- (BOOL) hasGraphicContext;
-- (void *) windevice;
-- (Drawable) drawable;
-- (GC) graphicContext;
-- (NSRect) clipRect;
-
-
-- (XPoint) viewPointToX: (NSPoint)aPoint;
-- (XRectangle) viewRectToX: (NSRect)aRect;
-- (XPoint) windowPointToX: (NSPoint)aPoint;
-- (XRectangle) windowRectToX: (NSRect)aRect;
-
-@end
-
-@interface HLGState (Ops)
-- (NSDictionary *) GSReadRect: (NSRect)rect;
 @end
 
 #endif /* _HLGState_h_INCLUDE */

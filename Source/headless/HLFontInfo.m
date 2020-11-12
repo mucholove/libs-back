@@ -42,31 +42,16 @@
 #include <GNUstepBase/Unicode.h>
 
 #include <AppKit/NSBezierPath.h>
-#include "headless/HLFontInfo.h"
+// #include "headless/HLFontInfo.h"
 
 #define id _gs_avoid_id_collision
 #include <fontconfig/fontconfig.h>
 #undef id
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_OUTLINE_H
 
 @implementation GSHLFaceInfo
 @end
 
-@implementation GSXftFontEnumerator
-+ (Class) 
-    faceInfoClass
-{
-  return [GSXftFaceInfo class];
-}
-+ (GSXftFaceInfo *) 
-    fontWithName: (NSString *) name
-{
-  return (GSXftFaceInfo *) [super fontWithName: name];
-}
 @end
 
 @interface GSHLFontInfo (Private)
@@ -173,38 +158,6 @@
 }
 */
 
-- (void) 
-    drawString:  (NSString*)string
-	  onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-    with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-    ;
-}
-
-- (void) 
-    drawGlyphs: (const NSGlyph *) glyphs 
-    length: (int) len
-	  onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-    with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-    ;
-}
-
-- (void) 
-    draw: (const char*) s 
-    length: (int) len 
-    onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-	  with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-    ;
-}
-
 - (CGFloat) 
     widthOf: (const char*) s 
     length: (int) len
@@ -274,18 +227,5 @@ static FT_Outline_Funcs bezierpath_funcs = {
     return YES;
 }
 
-- (HLlyphInfo *)
-    HLlyphInfo: (NSGlyph) glyph
-{
-  static HLlyphInfo glyphInfo;
-
-  XftTextExtents32 ([HLServer xDisplay],
-                    (XftFont *)font_info,
-                    &glyph,
-                    1,
-                    &glyphInfo);
-
-  return &glyphInfo;
-}
 
 @end

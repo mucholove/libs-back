@@ -47,81 +47,16 @@
 #include <GNUstepBase/GSMime.h>
 #include <GNUstepBase/Unicode.h>
 
-static Atom XA_SLANT = (Atom)0;
-static Atom XA_SETWIDTH_NAME = (Atom)0;
-static Atom XA_CHARSET_REGISTRY = (Atom)0;
-static Atom XA_CHARSET_ENCODING = (Atom)0;
-static Atom XA_SPACING = (Atom)0;
-static Atom XA_PIXEL_SIZE = (Atom)0;
-static Atom XA_WEIGHT_NAME = (Atom)0;
-
-/*
- * Initialise the X atoms we are going to use
- */
-static BOOL HLInitAtoms(Display *dpy)
-{
-  // X atoms used to query a font
-
-  if (!dpy)
-    {
-      NSDebugLog(@"No Display opened in HLInitAtoms");      
-      return NO;
-    }
-
-  XA_PIXEL_SIZE = XInternAtom(dpy, "PIXEL_SIZE", False);
-  XA_SPACING = XInternAtom(dpy, "SPACING", False);
-  XA_WEIGHT_NAME = XInternAtom(dpy, "WEIGHT_NAME", False);
-  XA_SLANT = XInternAtom(dpy, "SLANT", False);
-  XA_SETWIDTH_NAME = XInternAtom(dpy, "SETWIDTH_NAME", False);
-  XA_CHARSET_REGISTRY = XInternAtom(dpy, "CHARSET_REGISTRY", False);
-  XA_CHARSET_ENCODING = XInternAtom(dpy, "CHARSET_ENCODING", False);
-
-/*
-  XA_ADD_STYLE_NAME = XInternAtom(dpy, "ADD_STYLE_NAME", False);
-  XA_RESOLUTION_X = XInternAtom(dpy, "RESOLUTION_X", False);
-  XA_RESOLUTION_Y = XInternAtom(dpy, "RESOLUTION_Y", False);
-  XA_AVERAGE_WIDTH = XInternAtom(dpy, "AVERAGE_WIDTH", False);
-  XA_FACE_NAME = XInternAtom(dpy, "FACE_NAME", False);
-*/
-
-  return YES;
-}
-
-
-@interface HLFontInfo (Private)
-
-- (BOOL) setupAttributes;
-- (XCharStruct *)xCharStructForGlyph: (NSGlyph) glyph;
-
-@end
 
 @implementation HLFontInfo
 
-- (XFontStruct*) xFontStruct
-{
-  return font_info;
-}
 
 - (id)
     initWithFontName: (NSString*)name
     matrix: (const CGFloat*)fmatrix
 	  screenFont: (BOOL)screenFont
 {
-  if (screenFont)
-    {
-      RELEASE(self);
-      return nil;
-    }
-
-  [super init];
-  ASSIGN(fontName, name);
-  memcpy(matrix, fmatrix, sizeof(matrix));
-
-  if (![self setupAttributes])
-    {
-      RELEASE(self);
-      return nil;
-    }
+  self = [super init];
 
   return self;
 }
@@ -129,21 +64,13 @@ static BOOL HLInitAtoms(Display *dpy)
 - (void) 
     dealloc
 {
-  if (font_info != NULL)
-    {
-      XFreeFont([HLServer xDisplay], font_info);
-    }
   [super dealloc];
 }
 
 - (NSMultibyteGlyphPacking)
     glyphPacking
 {
-  if (font_info->min_byte1 == 0 && 
-      font_info->max_byte1 == 0)
     return NSOneByteGlyphPacking;
-  else 
-    return NSTwoByteGlyphPacking;
 }
 
 - (NSSize) 
@@ -166,48 +93,8 @@ static BOOL HLInitAtoms(Display *dpy)
 - (NSGlyph) 
   glyphWithName: (NSString*)glyphName
 {
-  // FIXME: There is a mismatch between PS names and X names, that we should 
-  // try to correct here
-  KeySym k = XStringToKeysym([glyphName cString]);
-
-  if (k == NoSymbol)
     return 0;
-  else
-    return (NSGlyph)k;
 }
-
-- (void) 
-    drawString:  (NSString*)string
-	  onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-    with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-  ;
-}
-
-- (void) 
-    draw: (const char*) s 
-    length: (int) len 
-    onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-	  with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-  ;
-}
-
-- (void) 
-    drawGlyphs: (const NSGlyph *) glyphs 
-    length: (int) len
-	  onDisplay: (Display*) xdpy 
-    drawable: (Drawable) draw
-    with: (GC) HLcntxt 
-    at: (XPoint) xp
-{
-    ;
-}
-
 - (CGFloat) 
   widthOfString: (NSString*)string
 {
@@ -228,12 +115,6 @@ static BOOL HLInitAtoms(Display *dpy)
   return 0.0; // XTextWidth(font_info, buf, len);
 }
 
-- (void) 
-    setActiveFor: (Display*) xdpy 
-    gc: (GC) HLcntxt
-{
-    ;
-}
 
 @end
 

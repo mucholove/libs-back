@@ -52,9 +52,11 @@
 // ----------------------------------------------------------------------------
 @interface HLFontSetFontInfo : GSFontInfo
 {
+/*
     XFontSet	_font_set;
     XFontStruct	**_fonts;
     int		_num_fonts;
+*/
 }
 
 - (id) 
@@ -62,21 +64,6 @@
 	matrix: (const CGFloat*)matrix
    screenFont: (BOOL)screenFont;
    
-- (void) 
-   drawGlyphs: (const NSGlyph*)glyphs
-   length: (int)len
-   onDisplay: (Display*)dpy
-   drawable: (Drawable)win
-   with: (GC)gc
-   at: (XPoint)xp;
-   
-- (CGFloat) 
-   widthOfGlyphs: (const NSGlyph*)glyphs
-   length: (int)len;
-   
-- (void) 
-   setActiveFor: (Display*)dpy
-   gc: (GC)gc;
 
 @end // HLFontSetFontInfo : GSFontInfo
 

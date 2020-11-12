@@ -50,6 +50,11 @@
 @interface WaylandServer (Initialize)
 + (void) initializeBackend;
 @end
+#elif BUILD_SERVER == SERVER_headless_server
+#include <headless_server/HLSServer.h>
+@interface HLSServer (Initialize)
++ (void) initializeBackend;
+@end
 #endif
 
 /* Call the correct initalization routines for the choosen
@@ -71,6 +76,8 @@
   [WIN32Server initializeBackend];
 #elif BUILD_SERVER == SERVER_wayland
   [WaylandServer initializeBackend];
+#elif BUILD_SERVER == SERVER_headless_server
+  [HLSServer initializeBackend];
 #else
   [NSException raise: NSInternalInconsistencyException
 	       format: @"No Window Server configured in backend"];
@@ -86,7 +93,10 @@
   
     if ((context == nil) || ([context length] == 0))
     {
-#if (BUILD_GRAPHICS==GRAPHICS_xdps)
+
+#if (BUILD_GRAPHICS==GRAPHICS_headless)
+    context = @"HLContext";
+#elif (BUILD_GRAPHICS==GRAPHICS_xdps)
     context = @"NSDPSContext";
 #elif (BUILD_GRAPHICS==GRAPHICS_art)
     context = @"ARTContext";
@@ -98,8 +108,6 @@
     context = @"CairoContext";
 #elif (BUILD_GRAPHICS==GRAPHICS_opal)
     context = @"OpalContext";
-#elif (BUILD_GRAPHICS==GRAPHICS_headless)
-    context = @"HLContext";
 #else
 #error INVALID build graphics type
 #endif

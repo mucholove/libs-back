@@ -1,4 +1,4 @@
-/* XGGState - Implements graphic state drawing for headless
+/* HLGState - Implements graphic state drawing for headless
 
    Copyright (C) 1998-2010 Free Software Foundation, Inc.
 
@@ -56,31 +56,10 @@ static BOOL shouldDrawAlpha = YES;
     [self copyGraphicContext]
 
 
-u_long   
-xrRGBToPixel(RContext* context, device_color_t color)
-{
-  XColor cc;
-  RColor rcolor;
-  rcolor.red = 255. * color.field[0];
-  rcolor.green = 255. * color.field[1];
-  rcolor.blue = 255. * color.field[2];
-  rcolor.alpha = 0;
-  RGetClosestXColor(context, &rcolor, &cc);
-  return cc.pixel;
-}
-
-@interface XGGState (Private)
-- (void) _alphaBuffer: (gswindow_device_t *)dest_win;
-- (void) _paintPath: (ctxt_object_t) drawType;
-- (void) createGraphicContext;
-- (void) copyGraphicContext;
-- (void) setAlphaColor: (float)color;
-@end
-
 @implementation HLGState
 
-static Region emptyRegion;
 
+/*
 + (void) initialize
 {
   static BOOL beenHere = NO;
@@ -103,12 +82,14 @@ static Region emptyRegion;
       NSAssert(XEmptyRegion(emptyRegion), NSInternalInconsistencyException);
     }
 }
+*/
 
 /* Designated initializer. */
 - initWithDrawContext: (GSContext *)drawContext
 {
   [super initWithDrawContext: drawContext];
 
+  /*
   drawMechanism = -1;
   draw = 0;
   alpha_buffer = 0;
@@ -119,11 +100,13 @@ static Region emptyRegion;
   xft_alpha_draw = NULL;
   memset(&xft_color, 0, sizeof(XftColor));
 #endif
+*/
   return self;
 }
 
 - (void) dealloc
 {
+	/*
   if (sharedGC == NO && xgcntxt) 
     {
       XFreeGC(XDPY, xgcntxt);
@@ -143,6 +126,7 @@ static Region emptyRegion;
       XftDrawDestroy(xft_alpha_draw);
     }
 #endif
+*/
   [super dealloc];
 }
 
@@ -158,25 +142,7 @@ static Region emptyRegion;
     ;
 }
 
-- (void) 
-    setDrawable: (Drawable)theDrawable;
-{
-  draw = theDrawable;
-}
 
-- (void) 
-    setGraphicContext: (GC)xGraphicContext
-{
-    ;
-}
-
-/* Set various characteristics of the graphic context */
-- (void) 
-    setGCValues: (XGCValues)values 
-    withMask: (int)mask
-{
-    ;
-}
 
 /* Set the GC clipmask.  */
 - (void) 
@@ -185,22 +151,6 @@ static Region emptyRegion;
     ;
 }
 
-/* Returns the clip region, which must be freed by the caller */
-- (Region) 
-    xClipRegion
-{
-  /*
-  Region region = XCreateRegion();
-
-  if (clipregion)
-    XIntersectRegion(clipregion, clipregion, region);
-  else 
-    XIntersectRegion(emptyRegion, emptyRegion, region);
-
-  return region;
-  */
-  return NULL;
-}
 
 - (void) 
     setColor: (device_color_t *)color 
@@ -263,40 +213,21 @@ static Region emptyRegion;
 
 - (BOOL) hasDrawable
 {
-  return (draw ? YES : NO);
+  return NO;
 }
 
-- (void *) windevice
-{
-  return windevice;
-}
 
-- (Drawable) drawable
-{
-  return draw;
-}
 
-- (GC) graphicContext
-{
-  return nil;
-}
-
-- (void) 
-    copyBits: (XGGState*)source 
-    fromRect: (NSRect)aRect 
-    toPoint: (NSPoint)aPoint
-{
-    ;
-}
-
+/*
 - (void) 
     _alphaBuffer: (gswindow_device_t *)dest_win
 {
     ;
 }
+*/
 
 - (void) 
-    _compositeGState: (XGGState *) source 
+    _compositeGState: (HLGState *) source 
     fromRect: (NSRect) fromRect
     toPoint: (NSPoint) toPoint
     op: (NSCompositingOperation) op
@@ -324,15 +255,18 @@ static Region emptyRegion;
 
 /* Paint the current path using headless calls. All coordinates should already
    have been transformed to device coordinates. */
+/*
 - (void) 
     _doPath: (XPoint*)pts : (int)count 
     draw: (ctxt_object_t)type
 {
     ;
 }
+*/
 
 /* fill a complex path. All coordinates should already have been
    transformed to device coordinates. */
+/*
 - (void) 
     _doComplexPath: (XPoint*)pts 
     : (int*)types 
@@ -373,10 +307,11 @@ static Region emptyRegion;
 {
   return XGWindowRectToX(self, aRect);
 }
+*/
 
 @end
 
-@implementation XGGState (Ops)
+@implementation HLGState (Ops)
 
 - (void) 
     DPSsetalpha: (CGFloat)a
@@ -401,8 +336,8 @@ static Region emptyRegion;
     ;
 }
 
-- (void) G
-    SSetFont: (GSFontInfo *)newFont
+- (void)
+    GSSetFont: (GSFontInfo *)newFont
 {
   if (font == newFont) {
     return;
@@ -526,8 +461,7 @@ static Region emptyRegion;
     ;  
 }
 
-- (NSDictionary *) G
-    SReadRect: (NSRect)rect
+- (NSDictionary *) GSReadRect: (NSRect)rect
 {
   NSMutableDictionary *dict;
   dict = [NSMutableDictionary dictionary];
